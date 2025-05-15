@@ -6,9 +6,9 @@ const URL = process.env.BURGER_API_URL;
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 
-type TServerResponse<T> = {
-  success: boolean;
-} & T;
+export type TServerResponseStatus = { success: boolean };
+
+type TServerResponse<T> = TServerResponseStatus & T;
 
 type TRefreshResponse = TServerResponse<{
   refreshToken: string;
