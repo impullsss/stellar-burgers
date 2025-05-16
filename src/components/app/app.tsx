@@ -22,6 +22,7 @@ import {
 import { useEffect } from 'react';
 import { useDispatch } from '@store';
 import { fetchUser, fetchIngredients, resetOrderModalData } from '@slices';
+import styles from '../root/root.module.css';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,19 @@ const App = () => {
           <Route path='/' element={<ConstructorPage />} />
           <Route path='/feed' element={<Feed />} />
           <Route path='/feed/:number' element={<OrderInfo />} />
-          <Route path='/ingredients/:id' element={<IngredientDetails />} />
+          <Route
+            path='/ingredients/:id'
+            element={
+              <div className={styles.detailPageWrap}>
+                <h1
+                  className={`${styles.detailHeader} text text_type_main-large`}
+                >
+                  Детали ингредиента
+                </h1>
+                <IngredientDetails />
+              </div>
+            }
+          />
           <Route
             path='/login'
             element={
