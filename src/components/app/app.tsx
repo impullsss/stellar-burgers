@@ -50,7 +50,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <div className={styles.detailPageWrap}>
+              <div>
                 <h1
                   className={`${styles.detailHeader} text text_type_main-large`}
                 >
