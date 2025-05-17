@@ -134,7 +134,14 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <OrderInfo />
+                <div className={styles.detailPageWrap}>
+                  <h1
+                    className={`${styles.detailHeader} text text_type_main-large`}
+                  >
+                    {currentNumber ? `#${currentNumber.padStart(6, '0')}` : ''}
+                  </h1>
+                  <OrderInfo />
+                </div>
               </ProtectedRoute>
             }
           />
@@ -174,7 +181,12 @@ const App = () => {
             <Route
               path='/profile/orders/:number'
               element={
-                <Modal title='Детали заказа' onClose={handleModalClose}>
+                <Modal
+                  title={
+                    currentNumber ? `#${currentNumber.padStart(6, '0')}` : ''
+                  }
+                  onClose={handleModalClose}
+                >
                   <OrderInfo />
                 </Modal>
               }
