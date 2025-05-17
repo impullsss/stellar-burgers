@@ -10,7 +10,13 @@ import {
   ResetPassword
 } from '@pages';
 
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useMatch
+} from 'react-router-dom';
 
 import {
   IngredientDetails,
@@ -30,6 +36,10 @@ const App = () => {
   const navigate = useNavigate();
   const state = location.state as { background?: Location };
 
+  const feedMatch = useMatch('/feed/:number')?.params.number;
+  const profileMatch = useMatch('/profile/orders/:number')?.params.number;
+  const currentNumber = feedMatch || profileMatch;
+
   const handleModalClose = () => {
     navigate(-1);
     dispatch(resetOrderModalData());
@@ -46,7 +56,19 @@ const App = () => {
         <Routes location={state?.background || location}>
           <Route path='/' element={<ConstructorPage />} />
           <Route path='/feed' element={<Feed />} />
-          <Route path='/feed/:number' element={<OrderInfo />} />
+          <Route
+            path='/feed/:number'
+            element={
+              <div className={styles.detailPageWrap}>
+                <h1
+                  className={`${styles.detailHeader} text text_type_main-large`}
+                >
+                  {currentNumber ? `#${currentNumber.padStart(6, '0')}` : ''}
+                </h1>
+                <OrderInfo />
+              </div>
+            }
+          />
           <Route
             path='/ingredients/:id'
             element={
@@ -135,7 +157,12 @@ const App = () => {
             <Route
               path='/feed/:number'
               element={
-                <Modal title='Детали заказа' onClose={handleModalClose}>
+                <Modal
+                  title={
+                    currentNumber ? `#${currentNumber.padStart(6, '0')}` : ''
+                  }
+                  onClose={handleModalClose}
+                >
                   <OrderInfo />
                 </Modal>
               }
