@@ -15,7 +15,7 @@ type TOrdersState = {
   data: TOrder[];
 };
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   isOrderLoading: true,
   isOrdersLoading: true,
   orderRequest: false,
