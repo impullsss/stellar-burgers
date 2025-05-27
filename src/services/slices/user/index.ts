@@ -7,12 +7,10 @@ import {
 import {
   TLoginData,
   TRegisterData,
-  forgotPasswordApi,
   getUserApi,
   loginUserApi,
   logoutApi,
   registerUserApi,
-  resetPasswordApi,
   updateUserApi
 } from '@api';
 
@@ -27,7 +25,7 @@ type TUserState = {
   data: TUser;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
   isAuthenticated: false,
   data: {
@@ -83,31 +81,31 @@ export const logout = createAsyncThunk(
   }
 );
 
-export const resetPassword = createAsyncThunk<
-  boolean,
-  { password: string; token: string }
->('user/resetPassword', async (data, { rejectWithValue }) => {
-  const response = await resetPasswordApi(data);
+// export const resetPassword = createAsyncThunk<
+//   boolean,
+//   { password: string; token: string }
+// >('user/resetPassword', async (data, { rejectWithValue }) => {
+//   const response = await resetPasswordApi(data);
 
-  if (!response?.success) {
-    return rejectWithValue(response);
-  }
+//   if (!response?.success) {
+//     return rejectWithValue(response);
+//   }
 
-  return response.success;
-});
+//   return response.success;
+// });
 
-export const forgotPassword = createAsyncThunk<boolean, Pick<TUser, 'email'>>(
-  'user/forgotPassword',
-  async (data, { rejectWithValue }) => {
-    const response = await forgotPasswordApi(data);
+// export const forgotPassword = createAsyncThunk<boolean, Pick<TUser, 'email'>>(
+//   'user/forgotPassword',
+//   async (data, { rejectWithValue }) => {
+//     const response = await forgotPasswordApi(data);
 
-    if (!response?.success) {
-      return rejectWithValue(response);
-    }
+//     if (!response?.success) {
+//       return rejectWithValue(response);
+//     }
 
-    return response.success;
-  }
-);
+//     return response.success;
+//   }
+// );
 
 export const fetchUser = createAsyncThunk(
   'user/fetch',
