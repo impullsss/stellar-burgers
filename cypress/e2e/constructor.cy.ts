@@ -1,6 +1,6 @@
 import * as orderFixture from '../fixtures/order.json';
 
-// Выносим все селекторы в константы
+// Вынос всех селекторов в константы
 const SELECTORS = {
   INGREDIENT: {
     BUN: '[data-ingredient="bun"]',
